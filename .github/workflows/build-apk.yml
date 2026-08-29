@@ -3,6 +3,9 @@ name: Build debug APK
 on:
   workflow_dispatch: {}
 
+permissions:
+  contents: write
+
 jobs:
   build:
     runs-on: ubuntu-latest
@@ -24,3 +27,15 @@ jobs:
         with:
           name: quiettube-debug-apk
           path: app/build/outputs/apk/debug/app-debug.apk
+
+      - name: Publish APK to apk-artifacts branch
+        run: |
+          git config user.name "github-actions[bot]"
+          git config user.email "github-actions[bot]@users.noreply.github.com"
+          git checkout --orphan apk-artifacts
+          git reset --hard
+          mkdir -p dist
+          cp app/build/outputs/apk/debug/app-debug.apk dist/app-debug.apk
+          git add dist/app-debug.apk
+          git commit -m "Build APK from ${{ github.sha }}"
+          git push -f origin apk-artifacts
