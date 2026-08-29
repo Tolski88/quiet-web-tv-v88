@@ -1,0 +1,9 @@
+<resources>
+    <string name="app_name">QuietTube</string>
+
+    <!-- Accessibility-only labels: not shown as visible on-screen text -->
+    <string name="cd_logo">QuietTube logo</string>
+    <string name="cd_username_field">Username</string>
+    <string name="cd_password_field">Password</string>
+    <string name="cd_login_button">Log in</string>
+</resources>
